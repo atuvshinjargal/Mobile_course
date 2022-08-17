@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/my_first_widget.dart';
+import 'package:myapp/my_text.dart';
 
 class BasicScreen extends StatelessWidget {
   const BasicScreen({Key? key}) : super(key: key);
@@ -17,11 +18,15 @@ class BasicScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: const Center(
-        child: AspectRatio(
-          aspectRatio: 1.0,
-          child: MyFirstWidget(),
-        ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: const [
+          AspectRatio(
+            aspectRatio: 1.0,
+            child: MyFirstWidget(),
+          ),
+          MyText(),
+        ],
       ),
       drawer: Drawer(
         child: Container(
