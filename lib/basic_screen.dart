@@ -20,12 +20,9 @@ class BasicScreen extends StatelessWidget {
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: const [
-          AspectRatio(
-            aspectRatio: 1.0,
-            child: MyFirstWidget(),
-          ),
-          MyText(),
+        children: [
+          Image.asset('assets/image.png'),
+          const MyText(),
         ],
       ),
       drawer: Drawer(

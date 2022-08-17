@@ -3,6 +3,7 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class MyText extends StatelessWidget {
   const MyText({Key? key}) : super(key: key);
@@ -12,11 +13,9 @@ class MyText extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        const Text(
-          "Сайн байна уу?",
-          style: TextStyle(
-            fontSize: 16,
-          ),
+        Text(
+          "Sain baina uu?",
+          style: GoogleFonts.leckerliOne(fontSize: 40),
         ),
         Text(
           'Бидний үйл ажиллагаа',
