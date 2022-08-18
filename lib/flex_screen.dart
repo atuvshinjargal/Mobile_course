@@ -20,8 +20,12 @@ class FlexScreen extends StatelessWidget {
           _buildExpanded(context),
           ..._header(context, 'Flexible - сунамтгай'),
           _buildFlexible(context),
-          Expanded(
-            child: Container(),
+          const Expanded(
+            child: LabeledContainer(
+              color: Colors.cyanAccent,
+              text: 'Үлдсэн хэсэг',
+              textColor: Colors.black,
+            ),
           ),
           _buildFooter(context),
         ],
