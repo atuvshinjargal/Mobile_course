@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/flex_screen.dart';
 import 'package:myapp/profile_screen.dart';
 //import 'basic_screen.dart';
 
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: ProfileScreen(),
+      home: FlexScreen(),
     );
   }
 }
