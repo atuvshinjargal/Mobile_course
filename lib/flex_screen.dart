@@ -60,9 +60,9 @@ class FlexScreen extends StatelessWidget {
             ),
           ),
           LabeledContainer(
-            width: 40,
+            width: 60,
             color: Colors.green,
-            text: '40',
+            text: '60',
             textColor: Colors.white,
           ),
         ],
