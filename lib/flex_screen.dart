@@ -16,9 +16,9 @@ class FlexScreen extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          ..._header(context, 'Expanded'),
+          ..._header(context, 'Expanded - сунгах боломжтой'),
           _buildExpanded(context),
-          ..._header(context, 'Flexible'),
+          ..._header(context, 'Flexible - сунамтгай'),
           _buildFlexible(context),
           Expanded(
             child: Container(),
@@ -36,7 +36,7 @@ class FlexScreen extends StatelessWidget {
       ),
       Text(
         text,
-        style: Theme.of(context).textTheme.headline1,
+        style: Theme.of(context).textTheme.headline4,
       ),
     ];
   }
@@ -55,7 +55,7 @@ class FlexScreen extends StatelessWidget {
           Expanded(
             child: LabeledContainer(
               color: Colors.purple,
-              text: 'The remainder',
+              text: 'Үлдсэн хэсэг',
               textColor: Colors.white,
             ),
           ),
