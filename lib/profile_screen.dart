@@ -2,6 +2,7 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
 import 'package:flutter/material.dart';
+import 'package:myapp/star_rating.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -53,6 +54,7 @@ class ProfileScreen extends StatelessWidget {
               fontWeight: FontWeight.w600,
             ),
           ),
+          const StarRating(value: 3),
           _buildDetailsRow('Нас', '4'),
           _buildDetailsRow('Төлөв', 'Идэвхтэй'),
         ],
