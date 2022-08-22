@@ -12,17 +12,32 @@ class StopWatch extends StatefulWidget {
 class _StopWatchState extends State<StopWatch> {
   late int seconds;
   late Timer timer;
+  bool toolohEseh = false;
 
   @override
   void initState() {
     super.initState();
     seconds = 0;
-    timer = Timer.periodic(const Duration(seconds: 1), _onTick);
   }
 
   void _onTick(Timer timer) {
     setState(() {
       seconds = seconds + 1;
+    });
+  }
+
+  void _startTimer() {
+    timer = Timer.periodic(const Duration(seconds: 1), _onTick);
+    setState(() {
+      seconds = 0;
+      toolohEseh = true;
+    });
+  }
+
+  void _stopTimer() {
+    timer.cancel();
+    setState(() {
+      toolohEseh = false;
     });
   }
 
@@ -54,8 +69,8 @@ class _StopWatchState extends State<StopWatch> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               ElevatedButton(
-                onPressed: null,
-                child: Text('Эхлэх'),
+                onPressed: _startTimer,
+                child: Text('Эхлүүлэх'),
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all<Color>(
                     Colors.green,
@@ -69,8 +84,8 @@ class _StopWatchState extends State<StopWatch> {
                 width: 20,
               ),
               TextButton(
-                onPressed: null,
-                child: Text('Дуусгах'),
+                onPressed: _stopTimer,
+                child: Text('Зогсоох'),
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all<Color>(
                     Colors.red,
