@@ -3,6 +3,8 @@ import 'package:myapp/deep_tree.dart';
 import 'package:myapp/e_commerce_screen.dart';
 import 'package:myapp/flex_screen.dart';
 import 'package:myapp/profile_screen.dart';
+
+import 'stopwatch.dart';
 //import 'basic_screen.dart';
 
 void main() {
@@ -16,7 +18,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: ECommerceScreen(),
+      home: StopWatch(),
     );
   }
 }
