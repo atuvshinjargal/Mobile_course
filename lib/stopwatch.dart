@@ -17,19 +17,19 @@ class _StopWatchState extends State<StopWatch> {
   @override
   void initState() {
     super.initState();
+    timer = Timer.periodic(const Duration(seconds: 1), _onTick);
     seconds = 0;
   }
 
   void _onTick(Timer timer) {
-    setState(() {
-      seconds = seconds + 1;
-    });
+    if (toolohEseh) {
+      setState(() {
+        seconds = seconds + 1;
+      });
+    }
   }
 
   void _startTimer() {
-    if (toolohEseh == false) {
-      timer = Timer.periodic(const Duration(seconds: 1), _onTick);
-    }
     setState(() {
       seconds = 0;
       toolohEseh = true;
@@ -39,6 +39,7 @@ class _StopWatchState extends State<StopWatch> {
   void _stopTimer() {
     timer.cancel();
     setState(() {
+      seconds = 0;
       toolohEseh = false;
     });
   }
