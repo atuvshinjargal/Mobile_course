@@ -56,10 +56,13 @@ class _StopWatchState extends State<StopWatch> {
   }
 
   void _lap() {
-    setState(() {
-      laps.add(millisecond);
-      millisecond = 0;
-    });
+    if (toolohEseh) {
+      //true esehiig shalgaj baina.
+      setState(() {
+        laps.add(millisecond);
+        millisecond = 0;
+      });
+    }
   }
 
   @override
