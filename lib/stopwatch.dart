@@ -10,29 +10,31 @@ class StopWatch extends StatefulWidget {
 }
 
 class _StopWatchState extends State<StopWatch> {
-  late int seconds;
+  int millisecond = 0;
   late Timer timer;
   bool toolohEseh = false;
+  final laps = <int>[];
 
   @override
   void initState() {
     super.initState();
-    seconds = 0;
+    millisecond = 0;
   }
 
   void _onTick(Timer timer) {
     if (toolohEseh) {
       setState(() {
-        seconds = seconds + 1;
+        millisecond = millisecond + 100;
       });
     }
   }
 
   void _startTimer() {
     if (toolohEseh == false) {
-      timer = Timer.periodic(const Duration(seconds: 1), _onTick);
+      laps.clear();
+      timer = Timer.periodic(const Duration(milliseconds: 100), _onTick);
       setState(() {
-        seconds = 0;
+        millisecond = 0;
         toolohEseh = true;
       });
     }
@@ -42,10 +44,22 @@ class _StopWatchState extends State<StopWatch> {
     if (toolohEseh == true) {
       timer.cancel();
       setState(() {
-        seconds = 0;
+        //millisecond = 0;
         toolohEseh = false;
       });
     }
+  }
+
+  String _secondText(int milliseconds) {
+    final seconds = milliseconds / 1000;
+    return '$seconds секунд';
+  }
+
+  void _lap() {
+    setState(() {
+      laps.add(millisecond);
+      millisecond = 0;
+    });
   }
 
   @override
@@ -54,23 +68,24 @@ class _StopWatchState extends State<StopWatch> {
     super.dispose();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Stopwatch'),
-      ),
-      body: Column(
+  Widget _buildCounter(BuildContext context) {
+    return Container(
+      color: Theme.of(context).primaryColor,
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Center(
-            child: Text(
-              '$seconds секунд',
-              style: Theme.of(context).textTheme.headline5,
-            ),
+          Text(
+            'Тойрог ${laps.length + 1}',
+            style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                  color: Colors.white,
+                ),
           ),
-          const SizedBox(
-            height: 20,
+          Text(
+            _secondText(millisecond),
+            style: Theme.of(context)
+                .textTheme
+                .headline5!
+                .copyWith(color: Colors.white),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -81,6 +96,21 @@ class _StopWatchState extends State<StopWatch> {
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all<Color>(
                     Colors.green,
+                  ),
+                  foregroundColor: MaterialStateProperty.all<Color>(
+                    Colors.white,
+                  ),
+                ),
+              ),
+              const SizedBox(
+                width: 20,
+              ),
+              ElevatedButton(
+                onPressed: _lap,
+                child: Text('Тойрог'),
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(
+                    Colors.yellow,
                   ),
                   foregroundColor: MaterialStateProperty.all<Color>(
                     Colors.white,
@@ -104,6 +134,35 @@ class _StopWatchState extends State<StopWatch> {
               ),
             ],
           )
+        ],
+      ),
+    );
+  }
+
+  Widget _buildLapDisplay() {
+    return ListView(
+      children: [
+        for (int milliseconds in laps)
+          ListTile(
+            title: Text(
+              _secondText(milliseconds),
+            ),
+          ),
+      ],
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Stopwatch'),
+      ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Expanded(child: _buildCounter(context)),
+          Expanded(child: _buildLapDisplay()),
         ],
       ),
     );
