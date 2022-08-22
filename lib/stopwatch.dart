@@ -1,6 +1,5 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class StopWatch extends StatefulWidget {
   const StopWatch({Key? key}) : super(key: key);
@@ -10,6 +9,22 @@ class StopWatch extends StatefulWidget {
 }
 
 class _StopWatchState extends State<StopWatch> {
+  late int seconds;
+  late Timer timer;
+
+  @override
+  void initState() {
+    super.initState();
+    seconds = 0;
+    timer = Timer.periodic(const Duration(seconds: 1), _onTick);
+  }
+
+  void _onTick(Timer timer) {
+    setState(() {
+      seconds = seconds + 1;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,7 +33,7 @@ class _StopWatchState extends State<StopWatch> {
       ),
       body: Center(
         child: Text(
-          '0 секунд',
+          '$seconds секунд',
           style: Theme.of(context).textTheme.headline5,
         ),
       ),
