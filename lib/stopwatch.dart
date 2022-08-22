@@ -37,7 +37,7 @@ class _StopWatchState extends State<StopWatch> {
   }
 
   void _stopTimer() {
-    timer.cancel();
+    //timer.cancel();
     setState(() {
       seconds = 0;
       toolohEseh = false;
