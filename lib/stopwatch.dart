@@ -27,7 +27,9 @@ class _StopWatchState extends State<StopWatch> {
   }
 
   void _startTimer() {
-    timer = Timer.periodic(const Duration(seconds: 1), _onTick);
+    if (toolohEseh == false) {
+      timer = Timer.periodic(const Duration(seconds: 1), _onTick);
+    }
     setState(() {
       seconds = 0;
       toolohEseh = true;
