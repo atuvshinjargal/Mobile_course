@@ -20,7 +20,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Нэвтрэх'),
+        title: const Text('Нэвтрэх'),
       ),
       body: Center(
         child: loggedIn ? _buildSuccess() : _buildLoginForm(),
@@ -31,12 +31,12 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget _buildSuccess() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: const <Widget>[
-        Icon(
+      children: <Widget>[
+        const Icon(
           Icons.check,
           color: Colors.orange,
         ),
-        Text("Сайн байна уу? Та амжилттай нэвтэрлээ."),
+        Text("Сайн байна уу? $name та амжилттай нэвтэрлээ."),
       ],
     );
   }
@@ -51,13 +51,13 @@ class _LoginScreenState extends State<LoginScreen> {
           children: [
             TextFormField(
               controller: _nameController,
-              decoration: InputDecoration(labelText: 'Нэр'),
+              decoration: const InputDecoration(labelText: 'Нэр'),
               validator: (text) => text!.isEmpty ? 'Та утга оруулна уу.' : null,
             ),
             TextFormField(
               controller: _emailController,
               keyboardType: TextInputType.emailAddress,
-              decoration: InputDecoration(labelText: 'Э-мэйл'),
+              decoration: const InputDecoration(labelText: 'Э-мэйл'),
               validator: (text) {
                 if (text!.isEmpty) {
                   return 'Та Э-мэйлээ оруулна уу.';
@@ -70,9 +70,29 @@ class _LoginScreenState extends State<LoginScreen> {
                 return null;
               },
             ),
+            const SizedBox(
+              height: 20,
+            ),
+            ElevatedButton(
+              onPressed: _validate,
+              child: const Text(
+                'Үргэлжлүүлэх',
+              ),
+            ),
           ],
         ),
       ),
     );
+  }
+
+  void _validate() {
+    final form = _formKey.currentState;
+    if (!form!.validate()) {
+      return;
+    }
+    setState(() {
+      loggedIn = true;
+      name = _nameController.text;
+    });
   }
 }
