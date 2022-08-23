@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'dart:ffi';
 import 'package:flutter/material.dart';
 
 import 'model/user.dart';
+import 'platform_alert.dart';
 
 class StopWatch extends StatefulWidget {
   static const route = '/stopwatch';
@@ -52,6 +54,11 @@ class _StopWatchState extends State<StopWatch> {
         //millisecond = 0;
         toolohEseh = false;
       });
+      final totalTime = laps.fold(millisecond, (int total, lap) => total + lap);
+      final alert = PlatformAlert(
+          title: 'Амжилттай дууслаа',
+          message: 'Нийт $totalTime милл секунд боллоо.');
+      alert.show(context);
     }
   }
 
