@@ -19,7 +19,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: LoginScreen(),
+      routes: {
+        '/': (context) => const LoginScreen(),
+        LoginScreen.route: (context) => const LoginScreen(),
+        StopWatch.route: (context) => const StopWatch(),
+      },
+      initialRoute: '/',
     );
   }
 }

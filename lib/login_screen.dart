@@ -1,10 +1,14 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
+import 'model/user.dart';
 import 'stopwatch.dart';
 
 class LoginScreen extends StatefulWidget {
+  static const route = '/login';
   const LoginScreen({Key? key}) : super(key: key);
 
   @override
@@ -92,12 +96,11 @@ class _LoginScreenState extends State<LoginScreen> {
     if (!form!.validate()) {
       return;
     }
-    final name = _nameController.text;
-    final email = _emailController.text;
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(
-        builder: (_) => StopWatch(name: name, email: email),
-      ),
+    final user = User(name: _nameController.text, email: _emailController.text);
+
+    Navigator.of(context).pushReplacementNamed(
+      StopWatch.route,
+      arguments: user,
     );
   }
 }

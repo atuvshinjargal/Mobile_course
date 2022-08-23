@@ -1,13 +1,13 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 
+import 'model/user.dart';
+
 class StopWatch extends StatefulWidget {
-  final String name;
-  final String email;
+  static const route = '/stopwatch';
+
   const StopWatch({
     Key? key,
-    required this.name,
-    required this.email,
   }) : super(key: key);
 
   @override
@@ -164,9 +164,10 @@ class _StopWatchState extends State<StopWatch> {
 
   @override
   Widget build(BuildContext context) {
+    final user = ModalRoute.of(context)!.settings.arguments as User;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Stopwatch - ${widget.name}'),
+        title: Text('Stopwatch - ${user.name}'),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
