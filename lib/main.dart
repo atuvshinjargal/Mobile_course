@@ -6,7 +6,9 @@ import 'package:myapp/login_screen.dart';
 import 'package:myapp/profile_screen.dart';
 import 'package:myapp/view/plan_screen.dart';
 
+import 'plan_provider.dart';
 import 'stopwatch.dart';
+import 'view/plan_creator_screen.dart';
 //import 'basic_screen.dart';
 
 void main() {
@@ -19,15 +21,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(primarySwatch: Colors.purple),
-      home: PlanScreen(),
+    return PlanProvider(
+      child: MaterialApp(
+        theme: ThemeData(primarySwatch: Colors.purple),
+        home: PlanCreatorScreen(),
 /*       routes: {
         '/': (context) => const LoginScreen(),
         LoginScreen.route: (context) => const LoginScreen(),
         StopWatch.route: (context) => const StopWatch(),
       },
       initialRoute: '/', */
+      ),
     );
   }
 }
