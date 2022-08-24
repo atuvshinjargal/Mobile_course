@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
-import 'model/user.dart';
+import 'models/user.dart';
 import 'stopwatch.dart';
 
 class LoginScreen extends StatefulWidget {

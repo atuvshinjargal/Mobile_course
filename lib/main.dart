@@ -4,6 +4,7 @@ import 'package:myapp/e_commerce_screen.dart';
 import 'package:myapp/flex_screen.dart';
 import 'package:myapp/login_screen.dart';
 import 'package:myapp/profile_screen.dart';
+import 'package:myapp/view/plan_screen.dart';
 
 import 'stopwatch.dart';
 //import 'basic_screen.dart';
@@ -19,12 +20,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      routes: {
+      theme: ThemeData(primarySwatch: Colors.purple),
+      home: PlanScreen(),
+/*       routes: {
         '/': (context) => const LoginScreen(),
         LoginScreen.route: (context) => const LoginScreen(),
         StopWatch.route: (context) => const StopWatch(),
       },
-      initialRoute: '/',
+      initialRoute: '/', */
     );
   }
 }

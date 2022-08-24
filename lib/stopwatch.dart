@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:ffi';
 import 'package:flutter/material.dart';
 
-import 'model/user.dart';
+import 'models/user.dart';
 import 'platform_alert.dart';
 
 class StopWatch extends StatefulWidget {
