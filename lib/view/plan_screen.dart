@@ -1,5 +1,3 @@
-import 'package:myapp/plan_provider.dart';
-
 import '../models/data_layer.dart';
 import 'package:flutter/material.dart';
 
