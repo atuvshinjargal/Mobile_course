@@ -1,3 +1,5 @@
+import 'package:myapp/plan_provider.dart';
+
 import '../models/data_layer.dart';
 import 'package:flutter/material.dart';
 
@@ -30,19 +32,26 @@ class _PlanScreenState extends State<PlanScreen> {
   @override
   Widget build(BuildContext context) {
     //final plan = PlanProvider.of(context);
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(plan.name),
+    return WillPopScope(
+      onWillPop: () {
+        final controller = PlanProvider.of(context);
+        controller.savePlan(plan);
+        return Future.value(true);
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(plan.name),
+        ),
+        body: Column(
+          children: <Widget>[
+            Expanded(
+              child: _buildList(),
+            ),
+            SafeArea(child: Text(plan.completenessMessage)),
+          ],
+        ),
+        floatingActionButton: _buildAddTaskButton(),
       ),
-      body: Column(
-        children: <Widget>[
-          Expanded(
-            child: _buildList(),
-          ),
-          SafeArea(child: Text(plan.completenessMessage)),
-        ],
-      ),
-      floatingActionButton: _buildAddTaskButton(),
     );
   }
 
@@ -57,10 +66,13 @@ class _PlanScreenState extends State<PlanScreen> {
 
   Widget _buildAddTaskButton() {
     //final plan = PlanProvider.of(context);
+
     return FloatingActionButton(
       onPressed: () {
+        final controller = PlanProvider.of(context);
+        controller.createNewTask(plan: plan);
         setState(() {
-          plan.tasks.add(Task());
+          //plan.tasks.add(Task());
         });
       },
       child: Icon(Icons.add),
@@ -68,22 +80,33 @@ class _PlanScreenState extends State<PlanScreen> {
   }
 
   Widget _buildTaskTitle(Task task) {
-    return ListTile(
-      leading: Checkbox(
-        value: task.complete,
-        onChanged: (value) {
-          setState(() {
-            task.complete = value!; //null check, null baival false
-          });
-        },
+    return Dismissible(
+      key: ValueKey(task),
+      background: Container(
+        color: Colors.red,
       ),
-      title: TextFormField(
-        initialValue: task.description,
-        onFieldSubmitted: (text) {
-          setState(() {
-            task.description = text;
-          });
-        },
+      onDismissed: (direction) {
+        final controller = PlanProvider.of(context);
+        controller.deleteTask(plan, task);
+        setState(() {});
+      },
+      child: ListTile(
+        leading: Checkbox(
+          value: task.complete,
+          onChanged: (value) {
+            setState(() {
+              task.complete = value!; //null check, null baival false
+            });
+          },
+        ),
+        title: TextFormField(
+          initialValue: task.description,
+          onFieldSubmitted: (text) {
+            setState(() {
+              task.description = text;
+            });
+          },
+        ),
       ),
     );
   }

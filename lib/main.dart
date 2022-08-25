@@ -12,7 +12,7 @@ import 'view/plan_creator_screen.dart';
 //import 'basic_screen.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(PlanProvider(child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -21,17 +21,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PlanProvider(
-      child: MaterialApp(
-        theme: ThemeData(primarySwatch: Colors.purple),
-        home: PlanCreatorScreen(),
+    return MaterialApp(
+      theme: ThemeData(primarySwatch: Colors.purple),
+      home: PlanCreatorScreen(),
 /*       routes: {
         '/': (context) => const LoginScreen(),
         LoginScreen.route: (context) => const LoginScreen(),
         StopWatch.route: (context) => const StopWatch(),
       },
       initialRoute: '/', */
-      ),
     );
   }
 }

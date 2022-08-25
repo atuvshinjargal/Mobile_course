@@ -1,6 +1,9 @@
+import 'package:myapp/services/plan_services.dart';
+
 import '../models/data_layer.dart';
 
 class PlanController {
+  final services = PlanServices();
   final _plans = <Plan>[];
   List<Plan> get plans => List.unmodifiable(_plans);
   String _checkForDuplicates(Iterable<String> items, String text) {
@@ -21,12 +24,18 @@ class PlanController {
       return;
     }
     name = _checkForDuplicates(_plans.map((plan) => plan.name), name);
-    final plan = Plan()..name = name;
-    _plans.add(plan);
+    //final plan = Plan()..name = name;
+    //_plans.add(plan);
+    services.createPlan(name);
+  }
+
+  void savePlan(Plan plan) {
+    services.savePlan(plan);
   }
 
   void deletePlan(Plan plan) {
-    _plans.remove(plan);
+    services.delete(plan);
+    //_plans.remove(plan);
   }
 
   void createNewTask({required Plan plan, String? description}) {
@@ -36,11 +45,13 @@ class PlanController {
     description = _checkForDuplicates(
         plan.tasks.map((task) => task.description), description);
 
-    final task = Task()..description = description;
-    plan.tasks.add(task);
+    //final task = Task()..description = description;
+    //plan.tasks.add(task);
+    services.addTask(plan, description);
   }
 
   void deleteTask(Plan plan, Task task) {
-    plan.tasks.remove(task);
+    services.deleteTask(plan, task);
+    //plan.tasks.remove(task);
   }
 }
