@@ -4,6 +4,7 @@ import 'package:myapp/e_commerce_screen.dart';
 import 'package:myapp/flex_screen.dart';
 import 'package:myapp/login_screen.dart';
 import 'package:myapp/profile_screen.dart';
+import 'package:myapp/view/home_screen.dart';
 import 'package:myapp/view/plan_screen.dart';
 
 import 'plan_provider.dart';
@@ -22,8 +23,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(primarySwatch: Colors.purple),
-      home: PlanCreatorScreen(),
+      title: 'Future Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
+      home: HomeScreen(),
 /*       routes: {
         '/': (context) => const LoginScreen(),
         LoginScreen.route: (context) => const LoginScreen(),
