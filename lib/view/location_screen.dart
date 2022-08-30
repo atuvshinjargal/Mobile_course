@@ -17,18 +17,14 @@ class _LocationScreenState extends State<LocationScreen> {
     super.initState();
   }
 
-  Future<void> getMyPostion() async {
-    LocationPermission permission;
-    permission = await Geolocator.requestPermission();
-    _geolocatorPlatform.getCurrentPosition().then((Position position) {
-      myPosition = 'Latitude: ' +
-          position.latitude.toString() +
-          ' - Longitude: ' +
-          position.longitude.toString();
-      setState(() {
-        myPosition = myPosition;
-      });
-    });
+  Future<String> getMyPostion() async {
+    await Geolocator.requestPermission();
+    Position position = await _geolocatorPlatform.getCurrentPosition();
+    myPosition = 'Latitude: ' +
+        position.latitude.toString() +
+        ' - Longitude: ' +
+        position.longitude.toString();
+    return myPosition;
   }
 
   @override
@@ -44,17 +40,19 @@ class _LocationScreenState extends State<LocationScreen> {
         title: Text('Миний байршил'),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-              onPressed: () {
-                getMyPostion();
-              },
-              child: Text('Location'),
-            ),
-            myWidget,
-          ],
+        child: FutureBuilder(
+          future: getMyPostion(),
+          builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+            print(snapshot.connectionState);
+            print(snapshot.data);
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return CircularProgressIndicator();
+            } else if (snapshot.connectionState == ConnectionState.done) {
+              return Text(snapshot.data);
+            } else {
+              return Text('');
+            }
+          },
         ),
       ),
     );
