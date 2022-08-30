@@ -110,6 +110,22 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  Future returnError() {
+    throw ('Алдаа гарлаа!');
+  }
+
+  Future handleError() async {
+    try {
+      await returnError();
+    } catch (error) {
+      setState(() {
+        result = error.toString();
+      });
+    } finally {
+      print('Complete');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -135,10 +151,20 @@ class _HomeScreenState extends State<HomeScreen> {
                 //   result = 'Алдаа гарлаа';
                 // });
 
-                returnFG();
-                setState(() {
-                  result = result;
-                });
+                //returnFG();
+                returnError().then((value) {
+                  setState(() {
+                    result = 'Success';
+                  });
+                }).catchError((onError) {
+                  setState(() {
+                    result = onError;
+                  });
+                }).whenComplete(() => print('Complete'));
+
+                // setState(() {
+                //   result = result;
+                // });
                 /* getData().then((value) {
                   result = value.body.toString().substring(0, 450);
                   setState(() {
