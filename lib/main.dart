@@ -6,6 +6,7 @@ import 'package:myapp/login_screen.dart';
 import 'package:myapp/profile_screen.dart';
 import 'package:myapp/view/home_screen.dart';
 import 'package:myapp/view/location_screen.dart';
+import 'package:myapp/view/my_home_page.dart';
 import 'package:myapp/view/navigation_dialog.dart';
 import 'package:myapp/view/navigation_first.dart';
 import 'package:myapp/view/plan_screen.dart';
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: NavigationDialog(),
+      home: MyHomePage(),
 /*       routes: {
         '/': (context) => const LoginScreen(),
         LoginScreen.route: (context) => const LoginScreen(),
