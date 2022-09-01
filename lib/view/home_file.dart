@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class HomeFile extends StatefulWidget {
   const HomeFile({Key? key}) : super(key: key);
@@ -14,6 +15,10 @@ class _HomeFileState extends State<HomeFile> {
   String tempPath = '';
   File? myFile;
   String fileText = '';
+  final storage = FlutterSecureStorage();
+  final myKey = 'myPass';
+  String myPass = '';
+  TextEditingController pwdController = TextEditingController();
 
   Future getPaths() async {
     final docDir = await getApplicationDocumentsDirectory();
@@ -55,6 +60,15 @@ class _HomeFileState extends State<HomeFile> {
     }
   }
 
+  Future writeToSecureStorage() async {
+    await storage.write(key: myKey, value: pwdController.text);
+  }
+
+  Future readFromSecureStorage() async {
+    String? secret = await storage.read(key: myKey);
+    return secret;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,6 +86,26 @@ class _HomeFileState extends State<HomeFile> {
               child: Text('Файл унших'),
             ),
             Text(fileText),
+            TextField(
+              controller: pwdController,
+            ),
+            ElevatedButton(
+              onPressed: () {
+                writeToSecureStorage();
+              },
+              child: Text('Утга бичих'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                readFromSecureStorage().then((value) {
+                  setState(() {
+                    myPass = value;
+                  });
+                });
+              },
+              child: Text('Утга унших'),
+            ),
+            Text(myPass),
           ],
         ),
       ),
