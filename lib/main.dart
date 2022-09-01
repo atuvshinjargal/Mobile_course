@@ -14,6 +14,7 @@ import 'package:myapp/view/plan_screen.dart';
 import 'plan_provider.dart';
 import 'stopwatch.dart';
 import 'view/plan_creator_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 //import 'basic_screen.dart';
 
 void main() {

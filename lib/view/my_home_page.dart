@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../models/pizza.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -11,6 +12,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  int? appCounter;
   String pizzaString = '';
   Future<List<Pizza>> readJsonFile() async {
     String myString = await DefaultAssetBundle.of(context)
@@ -29,9 +31,32 @@ class _MyHomePageState extends State<MyHomePage> {
     return myPizzas; //List<Pizza>
   }
 
+  Future readAndWritePreferences() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    appCounter = prefs.getInt('appCounter');
+    if (appCounter == null) {
+      appCounter = 1;
+    } else {
+      appCounter = appCounter! + 1;
+    }
+    await prefs.setInt('appCounter', appCounter!);
+    setState(() {
+      appCounter = appCounter;
+    });
+  }
+
+  Future deletePreferences() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.clear();
+    setState(() {
+      appCounter = 0;
+    });
+  }
+
   @override
   void initState() {
-    readJsonFile();
+    //readJsonFile();
+    readAndWritePreferences();
     super.initState();
   }
 
@@ -42,21 +67,35 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text('JSON'),
       ),
       body: Container(
-        child: FutureBuilder(
-          future: readJsonFile(),
-          builder: ((BuildContext context, AsyncSnapshot<List<Pizza>> pizzas) {
-            return ListView.builder(
-              itemCount: pizzas.data == null ? 0 : pizzas.data!.length,
-              itemBuilder: (BuildContext context, int index) {
-                return ListTile(
-                  title: Text(pizzas.data![index].pizzaName!),
-                  subtitle: Text(
-                      '${pizzas.data![index].description!} - ${pizzas.data![index].price!}'),
-                );
-              },
-            );
-          }),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Text('Та энэ апп -г ${appCounter} удаа нээсэн байна.'),
+              ElevatedButton(
+                onPressed: () {
+                  deletePreferences();
+                },
+                child: Text('Тоолуурыг тэглэх'),
+              ),
+            ],
+          ),
         ),
+        // child: FutureBuilder(
+        //   future: readJsonFile(),
+        //   builder: ((BuildContext context, AsyncSnapshot<List<Pizza>> pizzas) {
+        //     return ListView.builder(
+        //       itemCount: pizzas.data == null ? 0 : pizzas.data!.length,
+        //       itemBuilder: (BuildContext context, int index) {
+        //         return ListTile(
+        //           title: Text(pizzas.data![index].pizzaName!),
+        //           subtitle: Text(
+        //               '${pizzas.data![index].description!} - ${pizzas.data![index].price!}'),
+        //         );
+        //       },
+        //     );
+        //   }),
+        // ),
       ),
     );
   }
