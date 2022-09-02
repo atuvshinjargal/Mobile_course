@@ -57,7 +57,7 @@ class _HomeHttpState extends State<HomeHttp> {
                     HttpHelper helper = HttpHelper();
                     pizzas.data!
                         .removeWhere((element) => element.id == item.index);
-                    helper.deletePizza(pizzas.data![index].id!);
+                    helper.deletePizza(pizzas.data![item.index].id!);
                   },
                   key: Key(index.toString()),
                   child: ListTile(
