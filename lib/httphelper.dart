@@ -8,6 +8,7 @@ class HttpHelper {
   final String path = 'thing/8';
   final String postPath = 'pizza';
   final String putPath = 'pizza';
+  final String deletePath = 'pizza';
 
   Future<List<Pizza>> getPizzaList() async {
     Uri url = Uri.https(authority, path); // https://wj229.mocklab.io/thing/8
@@ -36,6 +37,12 @@ class HttpHelper {
       url,
       body: put,
     );
+    return r.body;
+  }
+
+  Future<String> deletePizza(int id) async {
+    Uri url = Uri.https(authority, deletePath);
+    http.Response r = await http.delete(url, body: id.toString());
     return r.body;
   }
 }

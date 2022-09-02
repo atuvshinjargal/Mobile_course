@@ -52,19 +52,28 @@ class _HomeHttpState extends State<HomeHttp> {
             return ListView.builder(
               itemCount: pizzas.data == null ? 0 : pizzas.data!.length,
               itemBuilder: (BuildContext context, int index) {
-                return ListTile(
-                  title: Text(pizzas.data![index].pizzaName!),
-                  subtitle: Text(
-                      '${pizzas.data![index].description!} ${pizzas.data![index].price!.toString()}'),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => PizzaDetail(
-                            pizza: pizzas.data![index], isNew: false),
-                      ),
-                    );
+                return Dismissible(
+                  onDismissed: (item) {
+                    HttpHelper helper = HttpHelper();
+                    pizzas.data!
+                        .removeWhere((element) => element.id == item.index);
+                    helper.deletePizza(pizzas.data![index].id!);
                   },
+                  key: Key(index.toString()),
+                  child: ListTile(
+                    title: Text(pizzas.data![index].pizzaName!),
+                    subtitle: Text(
+                        '${pizzas.data![index].description!} ${pizzas.data![index].price!.toString()}'),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PizzaDetail(
+                              pizza: pizzas.data![index], isNew: false),
+                        ),
+                      );
+                    },
+                  ),
                 );
               },
             );
