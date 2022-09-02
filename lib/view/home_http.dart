@@ -38,7 +38,9 @@ class _HomeHttpState extends State<HomeHttp> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => PizzaDetail(),
+              builder: (context) => PizzaDetail(
+                isNew: true,
+              ),
             ),
           );
         },
@@ -54,6 +56,15 @@ class _HomeHttpState extends State<HomeHttp> {
                   title: Text(pizzas.data![index].pizzaName!),
                   subtitle: Text(
                       '${pizzas.data![index].description!} ${pizzas.data![index].price!.toString()}'),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => PizzaDetail(
+                            pizza: pizzas.data![index], isNew: false),
+                      ),
+                    );
+                  },
                 );
               },
             );
