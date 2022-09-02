@@ -61,11 +61,14 @@ class _HomeFileState extends State<HomeFile> {
   }
 
   Future writeToSecureStorage() async {
-    await storage.write(key: myKey, value: pwdController.text);
+    await storage.write(
+        key: myKey,
+        value: pwdController.text); //tulhuuriin tuslamjtai codolj hadgalna
   }
 
   Future readFromSecureStorage() async {
-    String? secret = await storage.read(key: myKey);
+    String? secret =
+        await storage.read(key: myKey); //tulhuuriin tuslamjtai unshih bolomjtoi
     return secret;
   }
 

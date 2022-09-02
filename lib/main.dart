@@ -5,6 +5,7 @@ import 'package:myapp/flex_screen.dart';
 import 'package:myapp/login_screen.dart';
 import 'package:myapp/profile_screen.dart';
 import 'package:myapp/view/home_file.dart';
+import 'package:myapp/view/home_http.dart';
 import 'package:myapp/view/home_screen.dart';
 import 'package:myapp/view/location_screen.dart';
 import 'package:myapp/view/my_home_page.dart';
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: HomeFile(),
+      home: HomeHttp(),
 /*       routes: {
         '/': (context) => const LoginScreen(),
         LoginScreen.route: (context) => const LoginScreen(),
