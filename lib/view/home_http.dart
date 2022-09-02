@@ -14,6 +14,8 @@ class HomeHttp extends StatefulWidget {
 }
 
 class _HomeHttpState extends State<HomeHttp> {
+  String result = '';
+
   Future<List<Pizza>> callPizzas() async {
     HttpHelper helper = HttpHelper();
     List<Pizza> pizzas = await helper.getPizzaList();
@@ -46,38 +48,47 @@ class _HomeHttpState extends State<HomeHttp> {
         },
       ),
       body: Container(
-        child: FutureBuilder(
-          future: callPizzas(),
-          builder: (context, AsyncSnapshot<List<Pizza>> pizzas) {
-            return ListView.builder(
-              itemCount: pizzas.data == null ? 0 : pizzas.data!.length,
-              itemBuilder: (BuildContext context, int index) {
-                return Dismissible(
-                  onDismissed: (item) {
-                    HttpHelper helper = HttpHelper();
-                    pizzas.data!
-                        .removeWhere((element) => element.id == item.index);
-                    helper.deletePizza(pizzas.data![item.index].id!);
+        child: Column(
+          children: [
+            Text(result),
+            FutureBuilder(
+              future: callPizzas(),
+              builder: (context, AsyncSnapshot<List<Pizza>> pizzas) {
+                return ListView.builder(
+                  itemCount: pizzas.data == null ? 0 : pizzas.data!.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Dismissible(
+                      onDismissed: (item) async {
+                        HttpHelper helper = HttpHelper();
+                        pizzas.data!
+                            .removeWhere((element) => element.id == item.index);
+                        String r = await helper
+                            .deletePizza(pizzas.data![item.index].id!);
+                        setState(() {
+                          result = r;
+                        });
+                      },
+                      key: Key(index.toString()),
+                      child: ListTile(
+                        title: Text(pizzas.data![index].pizzaName!),
+                        subtitle: Text(
+                            '${pizzas.data![index].description!} ${pizzas.data![index].price!.toString()}'),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => PizzaDetail(
+                                  pizza: pizzas.data![index], isNew: false),
+                            ),
+                          );
+                        },
+                      ),
+                    );
                   },
-                  key: Key(index.toString()),
-                  child: ListTile(
-                    title: Text(pizzas.data![index].pizzaName!),
-                    subtitle: Text(
-                        '${pizzas.data![index].description!} ${pizzas.data![index].price!.toString()}'),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => PizzaDetail(
-                              pizza: pizzas.data![index], isNew: false),
-                        ),
-                      );
-                    },
-                  ),
                 );
               },
-            );
-          },
+            ),
+          ],
         ),
       ),
     );
