@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 
 import '../httphelper.dart';
 import '../models/pizza.dart';
+import './pizza_detail.dart';
 
 class HomeHttp extends StatefulWidget {
   const HomeHttp({Key? key}) : super(key: key);
@@ -30,6 +31,17 @@ class _HomeHttpState extends State<HomeHttp> {
     return Scaffold(
       appBar: AppBar(
         title: Text('HTTP JSON'),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => PizzaDetail(),
+            ),
+          );
+        },
       ),
       body: Container(
         child: FutureBuilder(

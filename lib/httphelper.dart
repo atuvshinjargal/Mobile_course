@@ -6,6 +6,7 @@ import './models/pizza.dart';
 class HttpHelper {
   final String authority = 'wj229.mocklab.io';
   final String path = 'thing/8';
+  final String postPath = 'json';
 
   Future<List<Pizza>> getPizzaList() async {
     Uri url = Uri.https(authority, path); // https://wj229.mocklab.io/thing/8
@@ -18,5 +19,12 @@ class HttpHelper {
     } else {
       return [];
     }
+  }
+
+  Future<String> postPizza(Pizza pizza) async {
+    String post = json.encode(pizza.toJson());
+    Uri url = Uri.https(authority, postPath);
+    http.Response r = await http.post(url, body: post);
+    return r.body;
   }
 }
