@@ -67,11 +67,11 @@ class _LoginScreenState extends State<LoginScreen> {
         padding: EdgeInsets.all(36),
         child: ListView(
           children: [
-            userInput(),
-            passwordInput(),
-            btnMain(),
-            btnSecondary(),
-            txtMessage(),
+            userInput(), //email hayag
+            passwordInput(), //password avna
+            btnMain(), //nevtreh, burtguuleh
+            btnSecondary(), //burtuuleh, login
+            txtMessage(), //message haruulah
           ],
         ),
       ),
