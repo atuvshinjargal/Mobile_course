@@ -85,7 +85,7 @@ class _LoginScreenState extends State<LoginScreen> {
         controller: txtUsername,
         keyboardType: TextInputType.emailAddress,
         decoration: InputDecoration(
-          hintText: 'User name',
+          hintText: 'Email',
           icon: Icon(Icons.verified_user),
         ),
         validator: (text) => text!.isEmpty ? 'Та нэрээ оруулна уу.' : '',
@@ -99,6 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
       child: TextFormField(
         controller: txtPassword,
         keyboardType: TextInputType.visiblePassword,
+        obscureText: true,
         decoration: InputDecoration(
           hintText: 'Password',
           icon: Icon(Icons.enhanced_encryption),
@@ -109,7 +110,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Widget btnMain() {
-    String btnText = loggedIn ? 'Нэвтрэх' : 'Бүртгүүлэх';
+    String btnText = _isLogin ? 'Нэвтрэх' : 'Бүртгүүлэх';
     return Padding(
       padding: EdgeInsets.only(top: 128),
       child: Container(
@@ -129,7 +130,7 @@ class _LoginScreenState extends State<LoginScreen> {
             btnText,
             style: TextStyle(
               fontSize: 18,
-              color: Theme.of(context).primaryColorLight,
+              color: Theme.of(context).primaryColorDark,
             ),
           ),
           onPressed: (() {
