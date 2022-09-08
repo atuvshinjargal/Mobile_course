@@ -20,6 +20,10 @@ class _LoginScreenState extends State<LoginScreen> {
   late String name;
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
+  final TextEditingController txtPassword = TextEditingController();
+  final TextEditingController txtUsername = TextEditingController();
+  bool _isLogin = true;
+  String _message = '';
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -30,6 +34,66 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
       body: Center(
         child: loggedIn ? _buildSuccess() : _buildLoginForm(),
+      ),
+    );
+  }
+
+  Widget userInput() {
+    return Padding(
+      padding: EdgeInsets.only(top: 128),
+      child: TextFormField(
+        controller: txtUsername,
+        keyboardType: TextInputType.emailAddress,
+        decoration: InputDecoration(
+          hintText: 'User name',
+          icon: Icon(Icons.verified_user),
+        ),
+        validator: (text) => text!.isEmpty ? 'Та нэрээ оруулна уу.' : '',
+      ),
+    );
+  }
+
+  Widget passwordInput() {
+    return Padding(
+      padding: EdgeInsets.only(top: 24),
+      child: TextFormField(
+        controller: txtPassword,
+        keyboardType: TextInputType.visiblePassword,
+        decoration: InputDecoration(
+          hintText: 'Password',
+          icon: Icon(Icons.enhanced_encryption),
+        ),
+        validator: (text) => text!.isEmpty ? 'Та нууц үгээ оруулна уу.' : '',
+      ),
+    );
+  }
+
+  Widget btnMain() {
+    String btnText = loggedIn ? 'Нэвтрэх' : 'Бүртгүүлэх';
+    return Padding(
+      padding: EdgeInsets.only(top: 128),
+      child: Container(
+        height: 60,
+        child: ElevatedButton(
+          style: ButtonStyle(
+            backgroundColor:
+                MaterialStateProperty.all(Theme.of(context).primaryColorLight),
+            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(24.0),
+                side: BorderSide(color: Colors.red),
+              ),
+            ),
+          ),
+          child: Text(
+            btnText,
+            style: TextStyle(
+              fontSize: 18,
+              color: Theme.of(context).primaryColorLight,
+            ),
+          ),
+          onPressed: (() {}),
+        ),
       ),
     );
   }
