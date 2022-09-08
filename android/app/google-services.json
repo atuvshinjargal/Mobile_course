@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "874856797009",
+    "project_id": "eerdenet1-b42d3",
+    "storage_bucket": "eerdenet1-b42d3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:874856797009:android:e5e70b25406154dcdef970",
+        "android_client_info": {
+          "package_name": "mn.eerdenet.myapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "874856797009-8ppc1p9t2fl3kdmqhfcqd0n9gb68o771.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZMYd49MBV644h4utfMAQMU2TAJ3TsgAg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "874856797009-8ppc1p9t2fl3kdmqhfcqd0n9gb68o771.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
